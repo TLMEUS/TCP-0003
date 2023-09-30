@@ -1,0 +1,23 @@
+{% extends "layout.twig" %}
+{% block title %}Delete User{% endblock %}
+{% block body %}
+    <div class="w3-container">
+        <h4>
+            Are you sure you want to delete the {{ col_username }} user?
+        </h4>
+    </div>
+    <div class="w3-row">
+        <div class="w3-third">
+            <div class="w3-container"></div>
+        </div>
+        <div class="w3-third w3-center">
+            <form action="/users/deleteUser" method="post">
+                <input name="col_id" id="col_id" type="hidden" value="{{ col_id }}">
+                <label>
+                    <input class="w3-button w3-green w3-round-xlarge" style="width: 150px;" onclick="history.back()" value="No">
+                </label>
+                <input class="w3-button w3-red w3-round-xlarge" style="width: 150px;" type="submit" value="Yes">
+            </form>
+        </div>
+    </div>
+{% endblock %}

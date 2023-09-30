@@ -1,0 +1,26 @@
+{%  extends "layout.twig" %}
+{% block title %}User Departments{% endblock %}
+{% block body %}
+    <div class="w3-container">
+        <h1>User Department List
+            <a href="/departments/create"><i class="material-icons w3-text-red">add_circle_outline</i></a>
+        </h1>
+        <table class="w3-table-all">
+            <tr>
+                <th>ID</th>
+                <th>Department</th>
+                <th>Options</th>
+            </tr>
+            {% for department in departments %}
+                <tr>
+                    <td><a href="/departments/update/{{ department.col_id }}" class="w3-text-red" style="text-decoration: none">{{ department.col_id }}</a></td>
+                    <td>{{ department.col_name }}</td>
+                    <td>
+                        <a href="/departments/update/{{ department.col_id }}"><i class="material-icons w3-text-red">update</i></a>
+                        <a href="/departments/delete/{{ department.col_id }}"><i class="material-icons w3-text-red">delete</i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

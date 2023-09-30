@@ -1,0 +1,26 @@
+{%  extends "layout.twig" %}
+{% block title %}User Roles{% endblock %}
+{% block body %}
+    <div class="w3-container">
+        <h1>User Role List
+            <a href="/roles/create"><i class="material-icons w3-text-red">add_circle_outline</i></a>
+        </h1>
+        <table class="w3-table-all">
+            <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Options</th>
+            </tr>
+            {% for role in roles %}
+                <tr>
+                    <td><a href="/roles/update/{{ role.col_id }}" class="w3-text-red" style="text-decoration: none">{{ role.col_id }}</a></td>
+                    <td>{{ role.col_name }}</td>
+                    <td>
+                        <a href="/roles/update/{{ role.col_id }}"><i class="material-icons w3-text-red">update</i></a>
+                        <a href="/roles/delete/{{ role.col_id }}"><i class="material-icons w3-text-red">delete</i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

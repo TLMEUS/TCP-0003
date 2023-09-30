@@ -1,0 +1,30 @@
+{%  extends "layout.twig" %}
+{% block title %}Users{% endblock %}
+{% block body %}
+    <div class="w3-container">
+        <h1>User List
+            <a href="/users/create"><i class="material-icons w3-text-red">add_circle_outline</i></a>
+        </h1>
+        <table class="w3-table-all">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Department</th>
+                <th>Role</th>
+                <th>Options</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td><a href="/users/update/{{ user.col_id }}" class="w3-text-red" style="text-decoration: none">{{ user.col_id }}</a></td>
+                    <td>{{ user.col_username }}</td>
+                    <td>{{ user.col_dname }}</td>
+                    <td>{{ user.col_rname }}</td>
+                    <td>
+                        <a href="/users/update/{{ user.col_id }}"><i class="material-icons w3-text-red">update</i></a>
+                        <a href="/users/delete/{{ user.col_id }}"><i class="material-icons w3-text-red">delete</i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

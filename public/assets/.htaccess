@@ -1,0 +1,11 @@
+# This file contains the C:/TLME/Projects/ESP/API/API/.htaccess file for the TLME-Login site
+#
+# @author troylmarker
+# @version 1.0
+# @since 2023-3-15
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]

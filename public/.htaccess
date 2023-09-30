@@ -1,0 +1,17 @@
+# This file contains the .htaccess file for the TLME-Framework
+#
+# File Information
+# Project: TLME-Framework
+# Module Name: Public
+# File Name: .htaccess
+# Author: Troy L. Marker
+# Language: Apache Server Config
+#
+# File Authored On: 07/21/2023
+# File Copyright: 07/2023
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]

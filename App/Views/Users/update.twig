@@ -1,0 +1,42 @@
+{%  extends "layout.twig" %}
+{% block title %}User Roles{% endblock %}
+{% block body %}
+    <div class="w3-container">
+        <h1>Update User Information</h1>
+    </div>
+    <div class="w3-row">
+        <div class="w3-third">
+            <div class="w3-container"></div>
+        </div>
+        <div class="w3-third w3-center">
+            <form action="/users/updateUser" method="post">
+                <label for="col_username"></label>
+                <input class="w3-input" type="text" name="col_username" id="col_username" value="{{ user.col_username }}">
+                <label>Username {{  user.col_department }}</label><br />
+                <input type="hidden" name="col_password" id="col_password" value="NewHire">
+                <input type="hidden" name="col_id" id="col_id" value="{{ user.col_id }}">
+                <select name="col_department" id="col_department" style="width: 100%">
+                    {% for department in departments %}
+                        <option value="{{ department.col_id }}"
+                        {%  if department.col_name == user.col_dname %}
+                            selected="selected"
+                        {% endif %}
+                        >{{ department.col_name }}</option>
+                    {% endfor %}
+                </select><br />
+                <label for="col_department">Department</label><br />
+                <select name="col_role" id="col_role" style="width: 100%">
+                    {% for role in roles %}
+                        <option value="{{ role.col_id }}"
+                            {% if role.col_name == user.col_rname %}
+                                selected="selected"
+                            {% endif %}
+                        >{{ role.col_name }}</option>
+                    {% endfor %}
+                </select><br />
+                <label for="col_role">Role</label><br />
+                <input class="w3-button w3-blue w3-round-xlarge" style="width: 100%" type="submit" value="Update">
+            </form>
+        </div>
+    </div>
+{% endblock %}
