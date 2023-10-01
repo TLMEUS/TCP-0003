@@ -1,14 +1,19 @@
 <?php
 /**
- * This file contains the C:/TLME/Projects/TLME-Framework/Core/Error.php class for the TLME-Framework
+ * This file contains the Core/Error.php file for project TCP-0001.
  *
- * PHP Version: 8.2
+ * File Information:
+ * Project Name: TCP-0001
+ * Module Name: Core
+ * File Name: Error.php
+ * File Version: 1.0.0
+ * Author: Troy L Marker
+ * Language: PHP 8.2
  *
- * @author troylmarker
- * @version 1.0
- * @since 2023-3-23
+ * File Last Modified: 03/23/23
+ * File Authored on: 03/23/2023
+ * File Copyright: 3/2023
  */
-namespace Core;
 
 /**
  * Import needed classes
@@ -39,8 +44,8 @@ class Error
      */
     public static function errorHandler(int $level, string $message, string $file, int $line): void
     {
-        if (error_reporting() !== 0) {  // to keep the @ operator working
-            throw new ErrorException($message, 0, $level, $file, $line);
+        if (error_reporting() !== 0) {
+            throw new ErrorException($message, code: 0, severity: $level, filename: $file, line: $line);
         }
     }
 
@@ -72,10 +77,9 @@ class Error
             $message .= "\nThrown in '" . $exception->getFile() . "' on line " . $exception->getLine();
             $message .= "--------------------------------------------------------------------------------------";
             error_log($message);
-            View::render(template: "$code.twig");
+            \Core\View::render(template: "$code.twig");
         }
     }
-
 
     /**
      * @param string $title
@@ -87,9 +91,7 @@ class Error
      */
     #[NoReturn] public static function displayError(string $title, string $message, string $code): void
     {
-        View::render(template: 'Error.twig', args: ['title' => $title,
-            'code' => $code,
-            'message' => $message]);
+        \Core\View::render(template: 'Error.twig', args: ['title' => $title, 'code' => $code, 'message' => $message]);
         exit(0);
     }
 }

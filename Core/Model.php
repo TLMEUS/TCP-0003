@@ -1,24 +1,29 @@
 <?php
 /**
- * This file contains the C:/TLME/Projects/TLME-Framework/Core/Model.php class for the TLME-Framework
+ * This file contains the Core/Model.php file for project TCP-0001.
  *
- * PHP Version: 8.2
+ * File Information:
+ * Project Name: TCP-0001
+ * Module Name: Core
+ * File Name: Model.php
+ * File Version: 1.0.0
+ * Author: Troy L Marker
+ * Language: PHP 8.2
  *
- * @author troylmarker
- * @version 1.0
- * @since 2023-3-19
+ * File Last Modified: 03/23/23
+ * File Authored on: 03/23/2023
+ * File Copyright: 3/2023
  */
-namespace Core;
 
 /**
- * Import needed classes
+ *  Import needed classes
  */
 use App\Config;
 use PDO;
 use PDOException;
 
 /**
- * Abstract Core Model class definition
+ *  Core Model class definition
  */
 abstract class Model {
 
@@ -27,7 +32,8 @@ abstract class Model {
      *
      * @return PDO|null
      */
-    protected static function getDB(): ?PDO {
+    protected static function getDB(): ?PDO
+    {
         static $db = null;
         if ($db === null) {
             try {

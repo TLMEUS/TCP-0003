@@ -1,15 +1,19 @@
 <?php
 /**
- * This file contains the C:/TLME/Projects/TLME-Framework/Core/View.php class for the TLME-Framework
+ * This file contains the Core/View.php file for project TCP-0001.
  *
- * PHP Version: 8.2
+ * File Information:
+ * Project Name: TCP-0001
+ * Module Name: Core
+ * File Name: View.php
+ * File Version: 1.0.0
+ * Author: Troy L Marker
+ * Language: PHP 8.2
  *
- * @author troylmarker
- * @version 1.0
- * @since 2023-3-19
+ * File Last Modified: 03/23/23
+ * File Authored on: 03/23/2023
+ * File Copyright: 3/2023
  */
-
-namespace Core;
 
 /**
  * Import needed classes
@@ -22,7 +26,7 @@ use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- *Core View class definition
+ * Core View class definition
  */
 class View
 {
@@ -40,7 +44,7 @@ class View
     public static function render(string $template, array $args = []): void {
         static $twig = null;
         if ($twig === null) {
-            $loader = new FilesystemLoader('../App/Views');
+            $loader = new FilesystemLoader(paths: '../App/Views');
             $twig = new Environment($loader);
         }
         echo $twig->render($template, $args);

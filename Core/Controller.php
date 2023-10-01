@@ -1,14 +1,19 @@
 <?php
 /**
- * This file contains the C:/TLME/Projects/TLME-Framework/Core/Controller.php class for the TLME-Framework
+ * This file contains the Core/Controller.php file for project TCP-0001.
  *
- * PHP Version: 8.2
+ * File Information:
+ * Project Name: TCP-0001
+ * Module Name: Core
+ * File Name: Controller.php
+ * File Version: 1.0.0
+ * Author: Troy L Marker
+ * Language: PHP 8.2
  *
- * @author troylmarker
- * @version 1.0
- * @since 2023-3-19
+ * File Last Modified: 03/23/23
+ * File Authored on: 03/23/2023
+ * File Copyright: 3/2023
  */
-namespace Core;
 
 /**
  * Import needed classes
@@ -16,7 +21,7 @@ namespace Core;
 use Exception;
 
 /**
- * Core Controller abstract class definition
+ * Core Controller class definition
  */
 abstract class Controller {
 
@@ -31,7 +36,6 @@ abstract class Controller {
      * Class constructor
      *
      * @param array $route_params  Parameters from the route
-     *
      * @return void
      */
     public function __construct(array $route_params)
@@ -53,19 +57,19 @@ abstract class Controller {
     public function __call(string $name, array $args): void
     {
         $method = $name . 'Action';
+
         if (method_exists($this, $method)) {
             if ($this->before() !== false) {
                 call_user_func_array([$this, $method], $args);
                 $this->after();
             }
         } else {
-            throw new Exception("Method $method not found in controller " . get_class($this));
+            throw new Exception(message: "Method $method not found in controller " . get_class($this));
         }
     }
 
     /**
      * Before filter - called before an action method.
-     *
      * @return void
      */
     protected function before(): void
@@ -74,7 +78,6 @@ abstract class Controller {
 
     /**
      * After filter - called after an action method.
-     *
      * @return void
      */
     protected function after(): void

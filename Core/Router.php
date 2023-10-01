@@ -1,18 +1,23 @@
 <?php
 /**
- * This file contains the C:/TLME/Projects/TLME-Framework/Core/Router.php class for the TLME-Framework
+ * This file contains the Core/Router.php file for project TCP-0001.
  *
- * PHP Version: 8.2
+ * File Information:
+ * Project Name: TCP-0001
+ * Module Name: Core
+ * File Name: Router.php
+ * File Version: 1.0.0
+ * Author: Troy L Marker
+ * Language: PHP 8.2
  *
- * @author troylmarker
- * @version 1.0
- * @since 2023-3-19
+ * File Last Modified: 3/23/23
+ * File Authored on: 3/23/2023
+ * File Copyright: 3/2023
  */
-namespace Core;
 
 /**
  * Import needed classes
-*/
+ */
 use Exception;
 
 /**
@@ -44,14 +49,12 @@ class Router {
     public function add(string $route, array $params = []):void  {
 
         /**
-         * Convert the route to a regular expression: escape forward slashes
+         * Convert the route to a regular expression
          */
-
         $route = preg_replace(pattern: '/\//', replacement: '\\/', subject: $route);
         $route = preg_replace(pattern: '/\{([a-z]+)}/', replacement: '(?P<\1>[a-z-]+)', subject: $route);
         $route = preg_replace(pattern: '/\{([a-z]+):([^}]+)}/', replacement: '(?P<\1>\2)', subject: $route);
         $route = '/^' . $route . '$/i';
-
         $this->routes[$route] = $params;
     }
 
@@ -65,7 +68,8 @@ class Router {
     }
 
     /**
-     * Match the route to the routes in the routing table, setting the $params property if a route is found.
+     * Match the route to the routes in the routing table, setting the $params
+     * property if a route is found.
      *
      * @param string $url The route URL
      * @return boolean  true if a match found, false otherwise
@@ -96,8 +100,9 @@ class Router {
     }
 
     /**
-     * Dispatch the route, creating the controller object and running the action method
-     *
+     * Dispatch the route, creating the controller object and running the
+     * action method
+
      * @param string $url The route URL
      * @return void
      * @throws Exception
@@ -115,13 +120,13 @@ class Router {
                 if (preg_match(pattern: '/action$/i', subject: $action) == 0) {
                     $controller_object->$action();
                 } else {
-                    Error::displayError(title: "Router Error", message: "Method $action (in controller $controller) not found.", code: "404");
+                    throw new Exception(message: "Method $action (in controller $controller) not found.");
                 }
             } else {
-                Error::displayError(title: "Router Error", message: "Controller class $controller not found.", code: "404");
+                throw new Exception(message: "Controller class $controller not found.");
             }
         } else {
-            Error::displayError(title: "Router Error", message: "No route matched.", code: "404");
+            throw new Exception(message: "No route matched.", code: 404);
         }
     }
 
@@ -133,26 +138,30 @@ class Router {
      * @return string
      */
     protected function convertToStudlyCaps(string $string): string {
-        return str_replace(search: ' ', replace: '', subject: ucwords(str_replace( '-', ' ', $string)));
+        return str_replace(search: ' ', replace: '', subject: ucwords(string: str_replace( search: '-', replace: ' ', subject: $string)));
     }
 
     /**
      * Convert the string with hyphens to camelCase
+     *
      * e.g. add-new => addNew
      *
      * @param string $string The string to convert
      * @return string
-    */
+     */
     protected function convertToCamelCase(string $string): string {
-        return lcfirst(string: $this->convertToStudlyCaps($string));
+        return lcfirst($this->convertToStudlyCaps($string));
     }
 
     /**
-     * Remove the query string variables from the URL (if any). As the full query string is used for the route, any variables at the end will need
-     * to be removed before the route is matched to the routing table.
+     * Remove the query string variables from the URL (if any). As the
+     * full query string is used for the route, any variables at the
+     * end will need to be removed before the route is matched to the
+     * routing table.
      *
-     * A URL of the format localhost/?page (one variable name, no value) won't work, however. (NB. The .htaccess file converts the first ? to a &
-     * when it's passed through to the $_SERVER variable).
+     * A URL of the format localhost/?page (one variable name, no value)
+     * won't work however. (NB. The .htaccess file converts the first ?
+     * to a & when it's passed through to the $_SERVER variable).
      *
      * @param string $url
      * @return string
@@ -160,9 +169,7 @@ class Router {
     protected function removeQueryStringVariables(string $url): string {
         if ($url != '') {
             $parts = explode(separator: '&', string: $url, limit: 2);
-            if (!strpos($parts[0], needle: '=')) {
-                $url = $parts[0];
-            } else {
+            if (!str_contains($parts[0], needle: '=')) $url = $parts[0]; else {
                 $url = '';
             }
         }
@@ -170,7 +177,8 @@ class Router {
     }
 
     /**
-     * Get the namespace for the controller class. The namespace defined in the route parameters is added if present.
+     * Get the namespace for the controller class. The namespace
+     * defined in the route parameters is added if present.
      *
      * @return string The request URL
      */
